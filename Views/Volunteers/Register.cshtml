@@ -1,0 +1,93 @@
+﻿@model GOTG.Ronewa.Web.Models.VolunteerProfile
+
+@{
+    ViewData["Title"] = "Register as Volunteer";
+}
+
+<style>
+
+    /* Borrowed theme styling for consistency */
+        .dark-theme-container {
+                background-color: #1a2b40;
+                color: #f0f0f0;
+                padding: 40px 0;
+                margin-left: -15px;
+                margin-right: -15px;
+
+    }
+
+        .text-accent-gold {
+        color: #FFD700 !important;
+    }
+
+        .form-control {
+                background-color: #3b4e60;
+                color: #f0f0f0;
+                border: 1px solid #4a607d;
+
+    }
+
+            .form-control:focus {
+                    background-color: #4a607d;
+                    color: #f0f0f0;
+                    border-color: #FFD700;
+                    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+
+        }
+
+        .btn-success {
+                background-color: #FFD700;
+                border-color: #FFD700;
+                color: #1a2b40;
+
+    }
+
+            .btn-success:hover {
+                    background-color: #e6c200;
+
+        }
+</style>
+
+<div class="dark-theme-container container-fluid">
+    <div class="container py-5">
+        <h2 class="display-4 text-accent-gold">@ViewData["Title"]</h2>
+        <p class="lead text-light mb-4">Your skills can make a difference. Join our team of dedicated volunteers and assist with disaster relief efforts.</p>
+
+        <form asp-action="Register" asp-controller="Volunteers" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3 p-3 bg-danger bg-opacity-10 rounded"></div>
+            @Html.AntiForgeryToken()
+
+            <div class="form-group mb-4">
+                <label asp-for="Phone" class="form-label text-accent-gold fw-bold"></label>
+                <input asp-for="Phone" class="form-control" type="tel" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Address" class="form-label text-accent-gold fw-bold"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="DateOfBirth" class="form-label text-accent-gold fw-bold"></label>
+                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Skills" class="form-label text-accent-gold fw-bold"></label>
+                <input asp-for="Skills" class="form-control" />
+                <span asp-validation-for="Skills" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg mt-3">
+                <i class="fas fa-handshake"></i> Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

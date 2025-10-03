@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GOTG.Ronewa.Web.Models.VolunteerTask>
+
+@{
+    ViewData["Title"] = "My Assigned Tasks";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-controller="Volunteers" asp-action="BrowseTasks">Browse More Tasks</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <p>You currently have no tasks assigned. Browse the available tasks to get started!</p>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

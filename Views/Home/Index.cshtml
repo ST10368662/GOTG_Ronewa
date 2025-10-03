@@ -1,0 +1,222 @@
+﻿@*
+    Home Page for GiftRonewa Disaster Alleviation Platform.
+    Content is styled to reflect the mission-driven approach of humanitarian organizations like Gift of the Givers.
+*@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Relief, Response, Restoration | GiftRonewa";
+}
+
+<style>
+    /* ---------------------- THEME OVERRIDES: Dark Mode (Blue & Gold/Yellow) ---------------------- */
+    /* Primary Dark Background for the whole content area */
+    .dark-theme-container {
+        background-color: #1a2b40; /* Deep Navy/Dark Blue */
+        color: #f0f0f0; /* Light Gray/White text */
+        padding-top: 20px;
+        padding-bottom: 20px;
+        /* Adjust margins to cover the full width of the view port */
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    /* Accent Color Definition (Gold/Yellow) */
+    .text-accent-gold {
+        color: #FFD700 !important;
+    }
+
+    .hero-section {
+        background: linear-gradient(135deg, #1f4287 0%, #004d99 100%); /* Deep Blue Gradient */
+        color: white;
+        padding: 90px 0; /* Slightly more vertical padding */
+        margin-bottom: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Darker shadow for dark theme */
+    }
+
+    .callout-section {
+        background-color: #2b3e50; /* Darker Blue/Gray background for callout */
+        padding: 40px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-card {
+        background-color: #2b3e50; /* Darker Blue/Gray background for cards */
+        color: #f0f0f0;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+        height: 100%;
+        border-left: 5px solid #FFD700; /* Gold accent line */
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+    .action-button-container .btn {
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        font-weight: 700; /* Bolder font */
+        border-radius: 10px;
+        padding: 15px 20px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+
+    /* Custom color alignment using Blue and Yellow/Gold accents */
+    .btn-success {
+        background-color: #FFD700; /* Gold/Yellow for primary action (Register) */
+        border-color: #FFD700;
+        color: #1a2b40; /* Dark text on bright button */
+    }
+
+        .btn-success:hover {
+            background-color: #e6c200;
+        }
+
+    .btn-warning {
+        background-color: #4AA4F3; /* Bright Blue for secondary action (Donate) */
+        border-color: #4AA4F3;
+        color: #1a2b40; /* Dark text on bright button */
+    }
+
+        .btn-warning:hover {
+            background-color: #3b8fe0;
+        }
+
+    .btn-danger {
+        background-color: #dc3545; /* Retain Red for urgency (Report) */
+        border-color: #dc3545;
+        color: white; /* White text on red button */
+    }
+
+    .card {
+        background-color: #2b3e50 !important; /* Match stat-card background */
+        color: #f0f0f0;
+    }
+
+    .card-title {
+        color: #FFD700 !important; /* Gold title */
+    }
+
+    .text-primary {
+        color: #4AA4F3 !important; /* Use brighter blue for general titles */
+    }
+
+</style>
+
+<!-- Wrap content in a container to enforce dark theme -->
+<div class="dark-theme-container container-fluid">
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1 class="display-2 fw-bolder mb-3 text-uppercase">Where Hope Finds Its Way</h1>
+            <p class="lead fw-light mb-4" style="max-width: 800px; margin: 0 auto;">
+                In the aftermath of storms, fires, and floods, **GiftRonewa** stands as a beacon of immediate, unconditional aid. We transform moments of devastation into stories of community resilience and recovery.
+            </p>
+            <p class="mt-4 fs-5 fw-bold text-accent-gold">
+                Be the first line of defense. Your compassion translates directly into action and life-saving support.
+            </p>
+        </div>
+
+        <!-- Mission Callout Section -->
+        <div class="callout-section text-center">
+            <h3 class="text-accent-gold mb-3 fw-bold">The Promise of Ronewa: Rebuilding Lives</h3>
+            <p class="fs-5 mb-0 text-light">
+                Our mission is simple: to be the **first on the ground** and the **last to leave**. We coordinate critical resources—from fresh water and medical supplies to volunteer manpower—to ensure no community faces disaster alone.
+            </p>
+        </div>
+
+        <!-- Key Impact Statistics -->
+        <div class="mb-5">
+            <h2 class="text-center mb-4 text-accent-gold fw-bold">Impact That Matters: The Numbers Behind the Aid</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h3 class="text-accent-gold fs-1">1,200+</h3>
+                        <p class="fw-bold">Items Pledged/Collected</p>
+                        <p class="text-light">Essentials reaching families affected by disaster (food, blankets, hygiene kits).</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h3 class="text-accent-gold fs-1">450+</h3>
+                        <p class="fw-bold">Volunteer Hours Logged</p>
+                        <p class="text-light">Dedicated heroes who mobilize at a moment's notice to provide hands-on relief.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <h3 class="text-accent-gold fs-1">28</h3>
+                        <p class="fw-bold">Verified Missions Launched</p>
+                        <p class="text-light">Rapid verification and deployment to critical zones based on real-time reports.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Call to Action Buttons -->
+        <h2 class="text-center mb-4 text-primary fw-bold">The Crisis Doesn't Wait. How Will You Act?</h2>
+        <div class="row mt-4 g-4 action-button-container">
+            <div class="col-md-4">
+                <div class="d-grid">
+                    <a asp-controller="Volunteers" asp-action="Register" class="btn btn-success btn-lg">
+                        <i class="fas fa-handshake"></i> 🤝 Join the Action Team
+                    </a>
+                </div>
+            </div>
+            <br />
+            <div class="col-md-4">
+                <div class="d-grid">
+                    <a asp-controller="Donations" asp-action="Create" class="btn btn-warning btn-lg">
+                        <i class="fas fa-gift"></i> 🎁 Fund or Donate Essentials
+                    </a>
+                </div>
+            </div>
+            <br />
+            <div class="col-md-4">
+                <div class="d-grid">
+                    <a asp-controller="IncidentReports" asp-action="Create" class="btn btn-danger btn-lg">
+                        <i class="fas fa-exclamation-triangle"></i> 🚨 Report a Disaster Incident
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-top border-secondary">
+            <h3 class="text-center mb-3 text-accent-gold">Our Foundation: The Principles That Guide Every Mission</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3 h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-bolt"></i> Speed & Efficiency</h5>
+                            <p class="card-text text-light">We know that seconds count. Our operational framework ensures that aid, logistics, and personnel are on the ground within hours, not days.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-heart"></i> Humanity & Compassion</h5>
+                            <p class="card-text text-light">We serve with respect and dignity, focusing on the emotional and physical needs of every person affected by a crisis.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-check-double"></i> Accountability</h5>
+                            <p class="card-text text-light">Our commitment to transparency ensures that every cent and every hour of volunteer time directly benefits those in need. Trust is paramount.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

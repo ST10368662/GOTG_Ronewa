@@ -1,0 +1,111 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model GOTG.Ronewa.Web.Models.IncidentReport
+
+@{
+    ViewData["Title"] = $"Incident: {Model.Title}";
+}
+
+<style>
+    /* Re-use existing theme styles */
+    .dark-theme-container {
+        background-color: #1a2b40;
+        color: #f0f0f0;
+        padding: 40px 0;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .text-accent-gold {
+        color: #FFD700 !important;
+    }
+
+    .card-dark-custom {
+        background-color: #2b3e50;
+        border: 1px solid #4a607d;
+        color: #f0f0f0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .status-badge-reported {
+        background-color: #dc3545;
+    }
+
+    .status-badge-verified {
+        background-color: #ffc107;
+        color: #1a2b40;
+    }
+
+    .status-badge-resolved {
+        background-color: #28a745;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: .35em .65em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .50rem;
+    }
+</style>
+
+<div class="dark-theme-container container-fluid">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-dark-custom">
+                    <div class="card-header bg-dark border-bottom border-secondary">
+                        <h1 class="card-title text-accent-gold mb-0">Incident Details: @Model.Title</h1>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-3 fw-bold text-accent-gold">Reported By</dt>
+                            <dd class="col-sm-9">
+                                @(Model.ReportedByUserId != null ? (Model.ReportedByUser?.UserName ?? "Authenticated User") : "Anonymous Reporter")
+                            </dd>
+
+                            <dt class="col-sm-3 fw-bold text-accent-gold">Location</dt>
+                            <dd class="col-sm-9">@Model.Location</dd>
+
+                            <dt class="col-sm-3 fw-bold text-accent-gold">Status</dt>
+                            <dd class="col-sm-9">
+                                @{
+                                    string badgeClass = Model.Status switch
+                                    {
+                                        GOTG.Ronewa.Web.Models.IncidentStatus.Reported => "status-badge-reported",
+                                        GOTG.Ronewa.Web.Models.IncidentStatus.Verified => "status-badge-verified",
+                                        GOTG.Ronewa.Web.Models.IncidentStatus.Resolved => "status-badge-resolved",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <span class="status-badge @badgeClass">
+                                    @Model.Status.ToString()
+                                </span>
+                            </dd>
+
+                            <dt class="col-sm-3 fw-bold text-accent-gold">Reported On</dt>
+                            <dd class="col-sm-9">
+                                @Model.ReportedAt.ToLocalTime().ToString("dd MMMM yyyy, HH:mm:ss")
+                            </dd>
+
+                            <dt class="col-sm-3 fw-bold text-accent-gold">Description</dt>
+                            <dd class="col-sm-9">@Model.Description</dd>
+                        </dl>
+                    </div>
+                    <div class="card-footer bg-dark border-top border-secondary text-end">
+                        <a asp-action="Index" class="btn btn-outline-info">
+                            <i class="fas fa-arrow-circle-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
