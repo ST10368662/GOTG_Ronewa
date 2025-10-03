@@ -46,7 +46,6 @@ We welcome contributions from the community. Please follow standard Git practice
 9.	Open a Pull Request.
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
-<img width="432" height="646" alt="image" src="https://github.com/user-attachments/assets/64c086d7-57c2-4fcf-955e-74772f0e18fa" />
 
 
 
