@@ -1,0 +1,86 @@
+# CI/CD Pipeline for GOTG Ronewa Web App
+# Triggers a build on every push to the main branch.
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest' # Use a standard Microsoft-hosted agent
+
+variables:
+  # Configuration settings
+  buildConfiguration: 'Release'
+  webProject: 'GOTG_Ronewa.Web/GOTG_Ronewa.Web.csproj'
+  testProject: 'GOTG_Ronewa.Tests/GOTG_Ronewa.Tests.csproj'
+  azureServiceConnection: '' # Name of the connection you set up in Azure DevOps
+  webAppName: '' # The name of your App Service instance
+
+stages:
+- stage: BuildAndTest
+  displayName: 'Build and Run All Tests'
+  jobs:
+  - job: BuildAndTestJob
+    steps:
+    
+    # 1. Restore Dependencies (NuGet)
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Dependencies'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+
+    # 2. Build the Web and Test Projects
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    # 3. Run Unit and Integration Tests (Xunit/MSTest)
+    - task: DotNetCoreCLI@2
+      displayName: 'Run All Tests (Unit/Integration/UI)'
+      inputs:
+        command: 'test'
+        projects: '$(testProject)'
+        arguments: '--configuration $(buildConfiguration) --collect "Code Coverage" --logger "trx"'
+        # Publish test results to Azure DevOps
+        publishTestResults: true 
+        
+    # 4. Publish Web Artifact for Deployment
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Web App'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        projects: '$(webProject)'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+
+    # 5. Archive the Published Artifact
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'drop'
+
+- stage: Deploy
+  displayName: 'Deploy to Azure'
+  dependsOn: BuildAndTest
+  condition: succeeded() # Only run deployment if tests and build succeed
+  jobs:
+  - job: DeployJob
+    steps:
+    
+    # 1. Download the Published Artifact
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Artifact'
+      inputs:
+        artifactName: 'drop'
+        
+    # 2. Deploy to Azure App Service
+    - task: AzureWebApp@1
+      displayName: 'Deploy Web App to Azure'
+      inputs:
+        azureSubscription: '$(azureServiceConnection)'
+        appName: '$(webAppName)'
+        package: '$(Pipeline.Workspace)/drop/**/*.zip' # Use the zip file created in the build stage
