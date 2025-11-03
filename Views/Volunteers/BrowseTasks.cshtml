@@ -1,0 +1,29 @@
+﻿@model IEnumerable<GOTG.Ronewa.Web.Models.VolunteerTask>
+
+@{
+    ViewData["Title"] = "Browse Volunteer Tasks";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assigned Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@(task.AssignedDate?.ToString("yyyy-MM-dd") ?? "N/A")</td>
+                <td>@task.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

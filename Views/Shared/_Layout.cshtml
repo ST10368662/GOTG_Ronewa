@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<GOTG.Ronewa.Web.Models.ApplicationUser> SignInManager
+@inject UserManager<GOTG.Ronewa.Web.Models.ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>GOTG Ronewa - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <span class="flag-dot"></span>
+                <span class="brand-title">GOTG Ronewa</span>
+            </a>
+        </div>
+        <nav class="main-nav">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="IncidentReports" asp-action="Index">Incidents</a>
+            <a asp-controller="Donations" asp-action="Index">Donations</a>
+            <a asp-controller="Volunteers" asp-action="Index">Volunteer Tasks</a>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a>
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm" class="inline-form">
+                    <button type="submit" class="link-button">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+            }
+        </nav>
+    </header>
+
+    <main class="container">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert success">@TempData["Success"]</div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div>© @DateTime.UtcNow.Year GOTG Ronewa — Disaster Alleviation Foundation</div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

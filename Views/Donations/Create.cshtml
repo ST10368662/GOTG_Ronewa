@@ -1,0 +1,91 @@
+﻿@model GOTG.Ronewa.Web.Models.Donation
+
+@{
+    ViewData["Title"] = "Donate Resources";
+}
+
+<style>
+    .dark-theme-container {
+        background-color: #1a2b40;
+        color: #f0f0f0;
+        padding: 40px 0;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .text-accent-gold {
+        color: #FFD700 !important;
+    }
+
+    .form-control {
+        background-color: #3b4e60; /* Darker input background */
+        color: #f0f0f0;
+        border: 1px solid #4a607d;
+    }
+
+        .form-control:focus {
+            background-color: #4a607d;
+            color: #f0f0f0;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #FFD700;
+        border-color: #FFD700;
+        color: #1a2b40;
+    }
+
+        .btn-warning:hover {
+            background-color: #e6c200;
+        }
+</style>
+
+<div class="dark-theme-container container-fluid">
+    <div class="container py-5">
+        <h2 class="display-4 text-accent-gold">@ViewData["Title"]</h2>
+        <p class="lead text-light mb-4">Your contributions of essential items are critical in times of crisis.</p>
+
+        <form asp-action="Create" method="post">
+
+            @* Include Antiforgery Token for security *@
+            @Html.AntiForgeryToken()
+
+            <div class="form-group mb-3">
+                <label asp-for="ResourceType" class="form-label text-accent-gold fw-bold"></label>
+                <select asp-for="ResourceType" class="form-control form-select">
+                    <option>Food</option>
+                    <option>Clothing</option>
+                    <option>Medical Supplies</option>
+                </select>
+                <span asp-validation-for="ResourceType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Quantity" class="form-label text-accent-gold fw-bold"></label>
+                <input asp-for="Quantity" class="form-control" type="number" min="1" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Details" class="form-label text-accent-gold fw-bold"></label>
+                <textarea asp-for="Details" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+
+            @* Add a hidden field for DonorName to satisfy the required constraint for unauthenticated users *@
+            @if (string.IsNullOrEmpty(Model.DonorName))
+            {
+                <input type="hidden" asp-for="DonorName" value="Anonymous Donor" />
+            }
+
+            <button type="submit" class="btn btn-warning btn-lg">
+                <i class="fas fa-gift"></i> Donate Now
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
